@@ -99,7 +99,7 @@ echo "Done!"
 if [ "$ssl" == "y" ] || [ "$ssl" == "Y" ]; then
     echo "Setting up SSL"
     sudo apt install certbot -y
-    certbot certonly --standalone -d $hostname -d play.$hostname -d media.$hostname -d legacy.$hostname -d old.$hostname
+    sudo certbot certonly --standalone -d $hostname -d play.$hostname -d media.$hostname -d legacy.$hostname -d old.$hostname
     sudo apt install nginx -y
     sudo echo "server {
     listen 443 ssl;
@@ -115,7 +115,7 @@ if [ "$ssl" == "y" ] || [ "$ssl" == "Y" ]; then
     }
 }" > /etc/nginx/sites-available/wand
     sudo ln -s /etc/nginx/sites-available/wand /etc/nginx/sites-enabled/
-
+    sudo systemctl restart nginx
 fi
 
 if [ "$run_game" == "y" ] || [ "$run_game" == "Y" ]; then
